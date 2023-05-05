@@ -29,7 +29,7 @@ const useStyles = createStyles((theme) => ({
 }));
 export const NewsCard = ({ data }: any) => {
   const { classes } = useStyles();
-  console.log(data);
+
   return (
     <Paper
       shadow='md'
