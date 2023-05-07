@@ -1,8 +1,8 @@
-import { Paper, Image, rem, Title, Text, Group, Badge, Button, createStyles } from "@mantine/core";
+import { Paper, Box, rem, Title, Text, createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   card: {
-    height: rem(300),
+    height: 400,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -12,47 +12,34 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
-    fontFamily: `Greycliff CF ${theme.fontFamily}`,
+    position: "absolute",
+    top: 20,
+    left: 10,
     fontWeight: 900,
     color: theme.white,
     lineHeight: 1.2,
-    fontSize: rem(32),
-    marginTop: theme.spacing.xs,
+    fontSize: theme.fontSizes.md,
   },
-
-  category: {
-    color: theme.white,
-    opacity: 0.7,
-    fontWeight: 700,
-    textTransform: "uppercase",
-  },
+  overlay: { backgroundColor: "black", width: "100%", height: "100%", borderRadius: 10, opacity: 0.5, "&:hover": { opacity: 0.2 } },
 }));
 export const NewsCard = ({ data }: any) => {
   const { classes } = useStyles();
 
   return (
     <Paper
-      shadow='md'
-      p='xl'
       radius='md'
       sx={{
         backgroundImage: `url(${data.urlToImage})`,
+        position: "relative",
       }}
       className={classes.card}
     >
-      <div>
-        <Text className={classes.category} size='xs'>
-          {/* {category} */}
-          test
-        </Text>
-        <Title order={3} className={classes.title}>
-          {/* {title} */}
-          test
-        </Title>
-      </div>
-      <Button variant='white' color='dark'>
-        Read article
-      </Button>
+      <Box className={classes.overlay} />
+
+      <Title order={3} className={classes.title}>
+        {/* {title} */}
+        {data.title}
+      </Title>
     </Paper>
   );
 };

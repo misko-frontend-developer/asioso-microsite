@@ -1,5 +1,7 @@
-import { BackgroundImage, Box, Text, createStyles } from "@mantine/core";
+import { useState } from "react";
+import { BackgroundImage, Box, Text, Image, createStyles } from "@mantine/core";
 import newsJson from "../news.json";
+import CoreModal from "./core/CoreModal";
 
 const useStyles = createStyles((theme) => ({
   backgroundImage: {
@@ -18,27 +20,37 @@ const useStyles = createStyles((theme) => ({
     opacity: 0.5,
   },
   headlines: {
+    cursor: "pointer",
     width: "60%",
     color: "white",
     position: "absolute",
-    bottom: "30%",
+    bottom: "40%",
     left: "10%",
-    cursor: "pointer",
     [theme.fn.smallerThan("md")]: {
       width: "100%",
       textAlign: "center",
       left: 0,
     },
   },
+  logo: {
+    position: "absolute",
+    top: 10,
+    left: 20,
+  },
+
   title: {
-    fontSize: "5rem",
+    fontSize: theme.fontSizes.xxl,
     fontWeight: 600,
+    transition: "transform 0.2s ease-in-out",
     [theme.fn.smallerThan("md")]: {
-      fontSize: 40,
+      fontSize: theme.fontSizes.xl,
+    },
+    "&:hover": {
+      transform: "scale(1.02)",
     },
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: theme.fontSizes.sm,
     fontWeight: 100,
     [theme.fn.smallerThan("md")]: {
       fontSize: 20,
@@ -47,14 +59,28 @@ const useStyles = createStyles((theme) => ({
 }));
 export const HeroSection = () => {
   const { classes } = useStyles();
-
+  const [open, setOpen] = useState(false);
   return (
     <BackgroundImage src={newsJson[3].urlToImage} className={classes.backgroundImage}>
+      <CoreModal opened={!!open} onClose={() => setOpen(false)} title={""}>
+        <Box h={400}>
+          <iframe
+            style={{ width: "100%", height: "100%" }}
+            src='https://www.youtube.com/embed/Dorf8i6lCuk'
+            title='YouTube video player'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+          />
+        </Box>
+      </CoreModal>
+
       <Box className={classes.overlay} />
-      <Box className={classes.headlines}>
+
+      <Image className={classes.logo} maw={130} mr='auto' src='/logo-white.png' alt='Random image' />
+
+      <Box className={classes.headlines} onClick={() => setOpen(true)}>
         <Text className={classes.title}> {newsJson[0].title}</Text>
-        <Text className={classes.subtitle}>Author: {newsJson[0].author}</Text>
-        <Text className={classes.subtitle}>Published at: {new Date(newsJson[0].publishedAt).toLocaleDateString()}</Text>
+        <Text className={classes.subtitle}> {new Date(newsJson[0].publishedAt).toDateString()}</Text>
       </Box>
     </BackgroundImage>
   );

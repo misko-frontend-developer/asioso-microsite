@@ -1,51 +1,56 @@
-import { Box, Container, Text, TextInput, Button, createStyles } from "@mantine/core";
+import { Box, Grid, Container, Text, TextInput, Button, createStyles } from "@mantine/core";
 import { useForm } from "@mantine/form";
 const useStyles = createStyles((theme) => ({
   wrapper: {
     height: 400,
-    display: "flex",
-    justifyContent: "space-evenly",
+    marginTop: 100,
     background: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(147,189,50,1) 0%, rgba(147,189,50,1) 41%, rgba(97,129,23,1) 75%)",
     color: "white",
-    marginTop: 100,
     [theme.fn.smallerThan("md")]: {
-      flexDirection: "column",
       textAlign: "center",
     },
   },
-  textWrapper: {
-    width: "30%",
-    textAlign: "start",
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "auto",
-    marginBottom: "auto",
-    [theme.fn.smallerThan("md")]: {
-      justifyContent: "center",
-      margin: "auto",
-      textAlign: "center",
-    },
-  },
+
   button: {
-    backgroundColor: "#93bd32",
-    height: 40,
+    backgroundColor: theme.colors.asiosoGreen[0],
+    height: 50,
     fontWeight: 500,
     letterSpacing: 2,
-    fontSize: 14,
+    fontSize: theme.fontSizes.sm,
     marginLeft: 20,
+    borderRadius: 10,
     [theme.fn.smallerThan("md")]: {
-      width: "100%",
-      marginLeft: 0,
+      width: "60%",
       marginTop: 10,
+      marginLeft: 0,
+      backgroundColor: theme.colors.dark[3],
+    },
+    "&:hover": {
+      backgroundColor: theme.colors.asiosoGreen[0],
     },
   },
-  formWrapper: {
-    width: "30%",
+  contentWrapper: { height: "100%", margin: "auto" },
+  innerForm: {
     display: "flex",
     alignItems: "center",
     [theme.fn.smallerThan("md")]: {
-      justifyContent: "center",
       flexDirection: "column",
+    },
+  },
+  input: { width: "60%" },
+  subscribe: {
+    fontSize: theme.fontSizes.xl,
+    fontWeight: 600,
+    lineHeight: "1em",
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: theme.fontSizes.lg,
+    },
+  },
+  newsletter: {
+    fontSize: theme.fontSizes.xl,
+    fontWeight: 900,
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: theme.fontSizes.lg,
     },
   },
 }));
@@ -57,23 +62,28 @@ export const Subscription = () => {
     }),
   });
   const { classes } = useStyles();
+
   return (
-    <Container fluid className={classes.wrapper}>
-      <Box className={classes.textWrapper}>
-        <Text sx={{ fontSize: "2.5rem", fontWeight: 600 }}>Subscribe to our </Text>
-        <Text sx={{ fontSize: "2.5rem", fontWeight: 900 }}>Newsletter!</Text>
-        <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </Text>
-      </Box>
-      <Box className={classes.formWrapper}>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
-          <Box sx={{ display: "flex" }}>
-            <TextInput {...form.getInputProps("email")} placeholder='Your email address' size='md' />
-            <Button type='submit' radius='sm' className={classes.button}>
-              Subscribe
-            </Button>
-          </Box>
-        </form>
-      </Box>
+    <Container className={classes.wrapper} fluid>
+      <Grid className={classes.contentWrapper} justify='space-around' align='center' gutter='xl'>
+        <Grid.Col md={8} lg={4}>
+          <Text className={classes.subscribe}>Subscribe to our </Text>
+          <Text className={classes.newsletter}>Newsletter!</Text>
+          <Text mt={10}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+          </Text>
+        </Grid.Col>
+        <Grid.Col md={8} lg={4}>
+          <form onSubmit={form.onSubmit((values) => console.log(values))}>
+            <Box className={classes.innerForm}>
+              <TextInput className={classes.input} {...form.getInputProps("email")} placeholder='Your email address' size='lg' />
+              <Button type='submit' radius='sm' className={classes.button} mb={form.errors.email ? 20 : 0}>
+                Subscribe
+              </Button>
+            </Box>
+          </form>
+        </Grid.Col>
+      </Grid>
     </Container>
   );
 };
