@@ -72,7 +72,7 @@ export const SingleNews = () => {
 
   return (
     <SiteWrapper>
-      {selectedNews && (
+      {selectedNews ? (
         <Box className={classes.content}>
           <Box className={classes.contentWrapper}>
             <Text className={classes.author}>{selectedNews.source.name}</Text>
@@ -82,6 +82,10 @@ export const SingleNews = () => {
           </Box>
           <Image radius='md' maw={600} src={selectedNews.urlToImage} />
         </Box>
+      ) : (
+        <Text ta='center' fz='lg' fw={600} mt={40}>
+          Hmm, something went wrong. Go back!
+        </Text>
       )}
       <Box onClick={() => navigate(-1)} className={classes.backBtn}>
         <IconChevronLeft size={18} />

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import NewsContext from "context/NewsContext";
 import { Paper, Box, Title, Text, createStyles } from "@mantine/core";
 import { useNavigate } from "react-router";
+import NewsArticle from "interfaces/Article";
 const useStyles = createStyles((theme) => ({
   card: {
     height: 400,
@@ -37,7 +38,7 @@ export const NewsCard = ({ data }: any) => {
   const { category, handleSelected } = useContext(NewsContext);
   const navigate = useNavigate();
 
-  const handleClick = (data: any) => {
+  const handleClick = (data: NewsArticle) => {
     handleSelected(data);
     navigate(data.title.replace(/\s+/g, "&").toLowerCase());
   };

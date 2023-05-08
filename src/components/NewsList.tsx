@@ -4,6 +4,7 @@ import { NewsCard } from "./core/NewsCard";
 import Navigation from "./core/Navigation";
 import NewsContext from "context/NewsContext";
 import useNewsPerCategory from "hooks/useNewsPerCategory";
+import NewsArticle from "interfaces/Article";
 const useStyles = createStyles((theme) => ({
   wrapper: { width: "80%", margin: "auto" },
   titleWrapper: {
@@ -31,9 +32,15 @@ const useStyles = createStyles((theme) => ({
     margin: 10,
   },
 }));
+
+interface NewsCategoryIF {
+  loading: boolean;
+  error: string;
+  data: Array<NewsArticle>;
+}
 export const NewsList = () => {
   const { category, handleHeroDisplay } = useContext(NewsContext);
-  const { data, loading, error }: any = useNewsPerCategory(category);
+  const { data, loading, error }: NewsCategoryIF = useNewsPerCategory(category);
 
   const { classes } = useStyles();
 
