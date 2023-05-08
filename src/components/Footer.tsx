@@ -73,9 +73,7 @@ export const Footer = () => {
           <Box className={classes.links}>
             <Box>
               <Text className={classes.subtitle}>Resource</Text>
-              <Text my={10}>Link1</Text>
-              <Text my={10}>Link2</Text>
-              <Text my={10}>Link3</Text>
+              <Text my={10}>NewsApi.org</Text>
             </Box>
             <Box>
               <Text className={classes.subtitle}>Where we are</Text>

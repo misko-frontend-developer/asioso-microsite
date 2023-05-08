@@ -16,11 +16,11 @@ const useStyles = createStyles((theme) => ({
     height: 50,
     fontWeight: 500,
     letterSpacing: 2,
-    fontSize: theme.fontSizes.sm,
+    fontSize: 15,
     marginLeft: 20,
     borderRadius: 10,
     [theme.fn.smallerThan("md")]: {
-      width: "60%",
+      width: "70%",
       marginTop: 10,
       marginLeft: 0,
       backgroundColor: theme.colors.dark[3],
@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
       flexDirection: "column",
     },
   },
-  input: { width: "60%" },
+  input: { width: "70%" },
   subscribe: {
     fontSize: theme.fontSizes.xl,
     fontWeight: 600,
@@ -69,9 +69,7 @@ export const Subscription = () => {
         <Grid.Col md={8} lg={4}>
           <Text className={classes.subscribe}>Subscribe to our </Text>
           <Text className={classes.newsletter}>Newsletter!</Text>
-          <Text mt={10}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-          </Text>
+          <Text mt={10}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </Text>
         </Grid.Col>
         <Grid.Col md={8} lg={4}>
           <form onSubmit={form.onSubmit((values) => console.log(values))}>

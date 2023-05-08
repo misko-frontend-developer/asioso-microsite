@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { BackgroundImage, Box, Text, Image, createStyles } from "@mantine/core";
 import newsJson from "../news.json";
 import CoreModal from "./core/CoreModal";
+import NewsContext from "context/NewsContext";
 
 const useStyles = createStyles((theme) => ({
   backgroundImage: {
@@ -10,7 +11,7 @@ const useStyles = createStyles((theme) => ({
     position: "relative",
     clipPath: "ellipse(100% 100% at 20% 0%);",
     [theme.fn.smallerThan("md")]: {
-      clipPath: "ellipse(100% 100% at 50% 0%);",
+      clipPath: "ellipse(100% 90% at 50% 0%);",
     },
   },
   overlay: {
@@ -22,14 +23,18 @@ const useStyles = createStyles((theme) => ({
   headlines: {
     cursor: "pointer",
     width: "60%",
+    height: 300,
     color: "white",
     position: "absolute",
     bottom: "40%",
     left: "10%",
+    textOverflow: "ellipsis",
     [theme.fn.smallerThan("md")]: {
       width: "100%",
       textAlign: "center",
       left: 0,
+      bottom: "30%",
+      overflow: "hidden",
     },
   },
   logo: {
@@ -45,13 +50,16 @@ const useStyles = createStyles((theme) => ({
     [theme.fn.smallerThan("md")]: {
       fontSize: theme.fontSizes.xl,
     },
+    [theme.fn.smallerThan("sm")]: {
+      fontSize: theme.fontSizes.lg,
+    },
     "&:hover": {
       transform: "scale(1.02)",
     },
   },
   subtitle: {
     fontSize: theme.fontSizes.sm,
-    fontWeight: 100,
+    fontWeight: 200,
     [theme.fn.smallerThan("md")]: {
       fontSize: 20,
     },
@@ -60,28 +68,35 @@ const useStyles = createStyles((theme) => ({
 export const HeroSection = () => {
   const { classes } = useStyles();
   const [open, setOpen] = useState(false);
+
+  const { heroDisplay } = useContext(NewsContext);
+
   return (
-    <BackgroundImage src={newsJson[3].urlToImage} className={classes.backgroundImage}>
-      <CoreModal opened={!!open} onClose={() => setOpen(false)} title={""}>
-        <Box h={400}>
-          <iframe
-            style={{ width: "100%", height: "100%" }}
-            src='https://www.youtube.com/embed/Dorf8i6lCuk'
-            title='YouTube video player'
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-            allowFullScreen
-          />
-        </Box>
-      </CoreModal>
+    <>
+      {heroDisplay && (
+        <BackgroundImage src={heroDisplay.urlToImage} className={classes.backgroundImage}>
+          <CoreModal opened={!!open} onClose={() => setOpen(false)} title={""}>
+            <Box h={400}>
+              <iframe
+                style={{ width: "100%", height: "100%" }}
+                src='https://www.youtube.com/embed/mychEecFJgU'
+                title='YouTube video player'
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                allowFullScreen
+              />
+            </Box>
+          </CoreModal>
 
-      <Box className={classes.overlay} />
+          <Box className={classes.overlay} />
 
-      <Image className={classes.logo} maw={130} mr='auto' src='/logo-white.png' alt='Random image' />
+          <Image className={classes.logo} maw={130} mr='auto' src='/logo-white.png' alt='Random image' />
 
-      <Box className={classes.headlines} onClick={() => setOpen(true)}>
-        <Text className={classes.title}> {newsJson[0].title}</Text>
-        <Text className={classes.subtitle}> {new Date(newsJson[0].publishedAt).toDateString()}</Text>
-      </Box>
-    </BackgroundImage>
+          <Box className={classes.headlines} onClick={() => setOpen(true)}>
+            <Text className={classes.title}> {heroDisplay.title}</Text>
+            <Text className={classes.subtitle}> {new Date(heroDisplay.publishedAt).toDateString()}</Text>
+          </Box>
+        </BackgroundImage>
+      )}
+    </>
   );
 };

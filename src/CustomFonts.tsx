@@ -7,7 +7,7 @@ export function CustomFonts() {
         {
           "@font-face": {
             fontFamily: "Montserrat",
-            src: `url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;700;800&display=swap') format("woff2")`,
+            src: `url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap') format("woff2")`,
             fontStyle: "normal",
           },
         },
